@@ -16,13 +16,13 @@ public class Post {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-//    @ManyToOne
-//    @JoinColumn(name = "id_autor", referencedColumnName = "email")
-//    private User author;
-//
-//    @ManyToOne
-//    @JoinColumn(name = "id_comunidade")
-//    private Community community;
+    @ManyToOne
+    @JoinColumn(name = "id_autor", referencedColumnName = "email")
+    private User author;
+
+    @ManyToOne
+    @JoinColumn(name = "id_comunidade")
+    private Community community;
 
     @Column(name = "titulo")
     private String title;

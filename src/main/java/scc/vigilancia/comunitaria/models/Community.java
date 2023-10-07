@@ -14,15 +14,15 @@ import java.util.List;
 public class Community {
 
     @Id
-//    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(name = "nome")
     private String name;
 
-//    @ManyToMany
-//    @JoinTable(name = "COMUNIDADE_USUARIO",
-//            joinColumns = @JoinColumn(name = "id_comunidade"),
-//            inverseJoinColumns = @JoinColumn(name = "email_usuario"))
-//    private List<User> members;
+    @ManyToMany
+    @JoinTable(name = "COMUNIDADE_USUARIO",
+            joinColumns = @JoinColumn(name = "id_comunidade"),
+            inverseJoinColumns = @JoinColumn(name = "email_usuario"))
+    private List<User> members;
 }

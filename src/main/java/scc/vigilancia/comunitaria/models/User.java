@@ -24,6 +24,6 @@ public class User {
     @Column(name = "permissao")
     private Integer permission;
 
-//    @ManyToMany(mappedBy = "members",fetch = FetchType.LAZY)
-//    private List<Community> communities;
+    @ManyToMany(mappedBy = "members",fetch = FetchType.LAZY)
+    private List<Community> communities;
 }
