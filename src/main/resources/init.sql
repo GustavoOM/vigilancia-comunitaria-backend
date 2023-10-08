@@ -1,25 +1,25 @@
-CREATE TABLE "COMUNIDADE" (
+CREATE TABLE "comunidade" (
   "id" SERIAL,
   "nome" VARCHAR(255) NOT NULL,
   PRIMARY KEY ("id")
 );
 
-CREATE TABLE "USUARIO" (
+CREATE TABLE "usuario" (
   "email" VARCHAR(255) primary key,
   "nome" VARCHAR(255) NOT NULL,
   "senha" VARCHAR(255) NOT NULL,
-  "permissao" INTEGER NOT NULL
+  "permissao" VARCHAR(255) NOT NULL
  );
 
-CREATE TABLE "COMUNIDADE_USUARIO" (
+CREATE TABLE "comunidade_usuario" (
   "id_comunidade" INTEGER NOT NULL,
   "email_usuario" VARCHAR(255) NOT NULL,
   PRIMARY KEY ("id_comunidade", "email_usuario"),
-  FOREIGN KEY ("id_comunidade") REFERENCES "COMUNIDADE"("id"),
-  FOREIGN KEY ("email_usuario") REFERENCES "USUARIO"("email")
+  FOREIGN KEY ("id_comunidade") REFERENCES "comunidade"("id"),
+  FOREIGN KEY ("email_usuario") REFERENCES "usuario"("email")
 );
 
-CREATE TABLE "POSTAGEM" (
+CREATE TABLE "postagem" (
   "id" SERIAL NOT NULL,
   "id_autor" VARCHAR(255) NOT NULL,
   "id_comunidade" INTEGER NOT NULL,
@@ -28,20 +28,20 @@ CREATE TABLE "POSTAGEM" (
   "tipo" INTEGER NOT NULL,
   "status" INTEGER NOT NULL,
   PRIMARY KEY ("id"),
-  FOREIGN KEY ("id_autor", "id_comunidade") REFERENCES "COMUNIDADE_USUARIO"("email_usuario", "id_comunidade")
+  FOREIGN KEY ("id_autor", "id_comunidade") REFERENCES "comunidade_usuario"("email_usuario", "id_comunidade")
 );
 --check tipo ou tabela tipo-nome
 --check status ou tabela status-nome
 
-CREATE TABLE "IMAGEM" (
+CREATE TABLE "imagem" (
   "caminho_s3" VARCHAR(100) NOT NULL,
   PRIMARY KEY ("caminho_s3")
 );
 
-CREATE TABLE "POSTAGEM_IMAGEM" (
+CREATE TABLE "postagem_imagem" (
   "id_postagem" INTEGER NOT NULL,
   "id_imagem" VARCHAR(100) NOT null,
   PRIMARY KEY ("id_postagem", "id_imagem"),
-  FOREIGN KEY ("id_postagem") REFERENCES "POSTAGEM"("id"),
-  FOREIGN KEY ("id_imagem") REFERENCES "IMAGEM"("caminho_s3")
+  FOREIGN KEY ("id_postagem") REFERENCES "postagem"("id"),
+  FOREIGN KEY ("id_imagem") REFERENCES "imagem"("caminho_s3")
 );
