@@ -12,6 +12,8 @@ import javax.persistence.*;
 @Data
 public class Post {
 
+    // TODO: criar Enum pra status
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
