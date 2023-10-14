@@ -19,7 +19,7 @@ import scc.vigilancia.comunitaria.services.UserService;
 @RequestMapping("/auth")
 @Slf4j
 @Api(tags = "Área de acesso para autenticação")
-@CrossOrigin(origins = {"http://localhost:4200", "http://ec2-15-228-86-83.sa-east-1.compute.amazonaws.com"})
+@CrossOrigin(origins = {"http://localhost:4200"})
 public class AuthenticationController {
 
     private final AuthenticationService authenticationService;

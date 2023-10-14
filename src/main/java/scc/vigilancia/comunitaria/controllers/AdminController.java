@@ -18,7 +18,7 @@ import scc.vigilancia.comunitaria.services.UserService;
 @RequestMapping("/admin")
 @Slf4j
 @Api(tags = "Área do administrador")
-@CrossOrigin(origins = {"http://localhost:4200", "http://ec2-15-228-86-83.sa-east-1.compute.amazonaws.com"})
+@CrossOrigin(origins = {"http://localhost:4200"})
 public class AdminController {
 
     private final AuthenticationService authenticationService;
