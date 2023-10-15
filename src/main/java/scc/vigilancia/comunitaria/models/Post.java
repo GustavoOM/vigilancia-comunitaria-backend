@@ -4,6 +4,9 @@ package scc.vigilancia.comunitaria.models;
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
+import scc.vigilancia.comunitaria.enums.PostType;
+import scc.vigilancia.comunitaria.enums.StatusType;
+import scc.vigilancia.comunitaria.enums.UserType;
 
 import javax.persistence.*;
 
@@ -11,9 +14,6 @@ import javax.persistence.*;
 @Table(name = "POSTAGEM")
 @Data
 public class Post {
-
-    // TODO: criar Enum pra status
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
@@ -31,6 +31,14 @@ public class Post {
 
     @Column(name = "conteudo")
     private String content;
+
+    @Column(name = "tipo")
+    @Enumerated(EnumType.ORDINAL)
+    private PostType type;
+
+    @Column(name = "status")
+    @Enumerated(EnumType.ORDINAL)
+    private StatusType status;
 
 }
 

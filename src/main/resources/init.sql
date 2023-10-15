@@ -45,3 +45,15 @@ CREATE TABLE "postagem_imagem" (
   FOREIGN KEY ("id_postagem") REFERENCES "postagem"("id"),
   FOREIGN KEY ("id_imagem") REFERENCES "imagem"("caminho_s3")
 );
+
+INSERT INTO public.usuario
+(email, nome, senha, permissao)
+VALUES('admin@admin.com', 'admin', MD5('admin'), 'ADMINISTRADOR');
+
+INSERT INTO public.comunidade
+(id, nome)
+VALUES(nextval('comunidade_id_seq'::regclass), 'USP');
+
+INSERT INTO public.comunidade_usuario
+(id_comunidade, email_usuario)
+VALUES(1, 'admin@admin.com');

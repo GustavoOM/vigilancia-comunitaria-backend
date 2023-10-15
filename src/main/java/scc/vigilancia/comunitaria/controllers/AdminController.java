@@ -20,12 +20,9 @@ import scc.vigilancia.comunitaria.services.UserService;
 @Api(tags = "Área do administrador")
 @CrossOrigin(origins = {"http://localhost:4200"})
 public class AdminController {
-
-    private final AuthenticationService authenticationService;
     private final UserService userService;
 
-    public AdminController(AuthenticationService authenticationService, UserService userService) {
-        this.authenticationService = authenticationService;
+    public AdminController(UserService userService) {
         this.userService = userService;
     }
 
