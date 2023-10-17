@@ -15,7 +15,7 @@ docker-compose build --no-cache && docker compose up -d
 
 
 ## Como acessar o backend
-- O backend do container está na porta 8080, então basta fazer http://localhost:8080. O caminho do swagger é http://localhost:8080/v2/swagger-ui.html
+- O backend do container está na porta 8080, então basta fazer http://localhost:8080. O caminho do swagger é http://localhost:8080/swagger-ui.html
 
 ## Como acessar o client do banco
 - O PgAdmin é um client do banco PostgreSQL. Ele possui credenciais para entrar e estão no docker compose. Mas estão abaixo também. Acesse http://localhost:16543 e faça login com as credenciais abaixo
