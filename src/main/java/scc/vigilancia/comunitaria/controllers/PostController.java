@@ -17,7 +17,7 @@ import scc.vigilancia.comunitaria.services.UserService;
 @RestController
 @RequestMapping("/post")
 @Slf4j
-@Api(tags = "Postagem")
+@Api(tags = "Endpoints para criar postagem")
 @CrossOrigin(origins = {"http://localhost:4200"})
 public class PostController {
 

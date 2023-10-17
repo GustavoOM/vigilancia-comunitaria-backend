@@ -18,7 +18,7 @@ import scc.vigilancia.comunitaria.services.UserService;
 @RestController
 @RequestMapping("/auth")
 @Slf4j
-@Api(tags = "Área de acesso para autenticação")
+@Api(tags = "Endpoints para autenticação")
 @CrossOrigin(origins = {"http://localhost:4200"})
 public class AuthenticationController {
 
