@@ -10,6 +10,9 @@
 ```
 docker-compose build --no-cache && docker compose up -d
 ```
+- O resultado final no Docker deve ser como o seguinte, e para ver os logs de um container clique na parte cinza em algum container
+  ![Exemplo de Imagem](readme_imgs/containers.png)
+
 
 ## Como acessar o backend
 - O backend do container está na porta 8080, então basta fazer http://localhost:8080. O caminho do swagger é http://localhost:8080/v2/swagger-ui.html
