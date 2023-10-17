@@ -20,10 +20,13 @@ docker-compose build --no-cache && docker compose up -d
   - senha: postgres
 - Assim que entrar, conecte no banco da seguinte forma e vc poderá executar queries SQL:
   - 1: Acesse http://localhost:16543. A página pode demorar um pouco pra carregar. Adicione o email e senha especificados
+
     ![Exemplo de Imagem](readme_imgs/login.png)
-  - 2: Inclua o container do banco do client como a seguir e clique em Save
+  - 2: Inclua o container do banco do client como a seguir. O login e senha do banco estão no docker-compose. O login é "postgres" e a senha é "postgres". E clique em Save
+    
     ![Exemplo de Imagem](readme_imgs/config.png)
   - 3: Você verá no menu lateral direito que o PgAdmin se conectou ao banco. Vá em Tools>Query Tool para adicionar uma query
+    
     ![Exemplo de Imagem](readme_imgs/query.png)
   - 4: Faça a query desejada e clique no botão de Play
     ![Exemplo de Imagem](readme_imgs/select.png)
