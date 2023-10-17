@@ -22,21 +22,21 @@ services:
       - "5432:5432"
     volumes:
       - db-volume-postgres:/var/lib/postgresql/data                                     # "local" volume
-      - ./src/main/resources/init.sql                                                   # postgres já populado
+      - ./src/main/resources/init.sql:/docker-entrypoint-initdb.d/init.sql              # postgres já populado
     networks:
       - backend-database-network
-#   pgadmin:
-#     container_name: database_client
-#     image: dpage/pgadmin4
-#     environment:
-#       PGADMIN_DEFAULT_EMAIL: "test@gmail.com"
-#       PGADMIN_DEFAULT_PASSWORD: "postgres"
-#     ports:
-#       - "16543:80"
-#     depends_on:
-#       - postgres
-#     networks:
-#       - backend-database-network
+  pgadmin:
+    container_name: database_client
+    image: dpage/pgadmin4
+    environment:
+      PGADMIN_DEFAULT_EMAIL: "test@gmail.com"
+      PGADMIN_DEFAULT_PASSWORD: "postgres"
+    ports:
+      - "16543:80"
+    depends_on:
+      - postgres
+    networks:
+      - backend-database-network
 
 volumes:
   db-volume-postgres:

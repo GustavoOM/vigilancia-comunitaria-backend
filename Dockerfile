@@ -11,10 +11,10 @@ FROM openjdk:11-jre-slim
 
 WORKDIR /app
 
-ENV APP_HOME /app
+
 ENV APP_NAME api.jar
 
-COPY --from=builder /app/target/${APP_NAME} ${APP_HOME}/${APP_NAME}
+COPY --from=builder /app/target/*.jar ${APP_NAME}
 
 EXPOSE 8080
 
