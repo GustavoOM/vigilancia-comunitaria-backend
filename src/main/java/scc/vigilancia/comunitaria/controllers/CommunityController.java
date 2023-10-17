@@ -26,8 +26,8 @@ public class CommunityController {
             MediaType.MULTIPART_FORM_DATA_VALUE,
             MediaType.APPLICATION_JSON_VALUE
     })
-    @ApiOperation(value = "Salvar postagem", nickname = "salvarPostagem", response = Object.class)
-    public ResponseEntity<Object> salvarPostagem(@RequestPart(name = "image") MultipartFile file)  {
+    @ApiOperation(value = "Salvar foto", nickname = "salvarFoto", response = Object.class)
+    public ResponseEntity<Object> salvarFoto(@RequestPart(name = "image") MultipartFile file)  {
         s3Service.savePost(file);
         return ResponseEntity.ok("ok");
     }
