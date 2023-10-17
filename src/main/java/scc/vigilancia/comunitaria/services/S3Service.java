@@ -1,12 +1,9 @@
 package scc.vigilancia.comunitaria.services;
 
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.common.net.MediaType;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
-import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 import software.amazon.awssdk.core.sync.RequestBody;
 import software.amazon.awssdk.services.s3.S3Client;
@@ -30,8 +27,7 @@ public class S3Service {
 
     public void savePost(MultipartFile file) {
         //TODO: gather owner data
-        if(isImageValid(file))
-            createS3Request(file);
+        createS3Request(file);
         //TODO: save full post
     }
 
@@ -40,7 +36,7 @@ public class S3Service {
 
         PutObjectRequest objectRequest = PutObjectRequest.builder()
                 .bucket(bucket)
-                .key(imageUUID)
+                .key(file.getOriginalFilename())
                 .build();
         try {
             amazonS3Client.putObject(objectRequest, RequestBody.fromBytes(file.getBytes()));

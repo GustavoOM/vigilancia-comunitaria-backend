@@ -1,0 +1,49 @@
+name: CI
+
+on:
+  push:
+    branches: ["dev"]
+  pull_request:
+    branches: ["dev"]
+
+  workflow_dispatch:
+
+jobs:
+  build:
+    name: Build jar file
+    runs-on: ubuntu-latest
+    container: maven:3.6.3-openjdk-11
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+      - name: Build and generate version info
+        run: |
+          mvn clean install
+          mvn help:evaluate -Dexpression=project.name -q -DforceStdout > target/NAME
+          mvn help:evaluate -Dexpression=project.version -q -DforceStdout > target/VERSION
+      - name: Archive artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: build-artifacts
+          path: target/
+          if-no-files-found: error
+
+  publish:
+    name: Build and Push Docker Image
+    needs: [build]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+      - name: Download build artifacts
+        uses: actions/download-artifact@v2
+        with:
+          name: build-artifacts
+          path: target/
+      - name: Log into GitHub Container Registry
+        run: echo ${{ secrets.REGISTRY_TOKEN }} | docker login ghcr.io -u raquelvaladao --password-stdin
+      - name: Build-Push Docker image
+        run: |
+          version=$(cat target/VERSION)
+          docker build -t ghcr.io/raquelvaladao/scc-app:$version .
+          docker push ghcr.io/raquelvaladao/scc-app:$version

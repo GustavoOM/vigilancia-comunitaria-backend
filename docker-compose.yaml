@@ -1,0 +1,46 @@
+version: '3'
+
+services:
+  backend:
+    env_file:
+      - .env
+    container_name: backend
+    build: .
+    ports:
+      - "8080:8080"
+    networks:
+      - backend-database-network
+    depends_on:
+      - postgres
+    restart: on-failure
+  postgres:
+    container_name: database
+    image: postgres
+    environment:
+      POSTGRES_PASSWORD: "postgres"
+    ports:
+      - "5432:5432"
+    volumes:
+      - db-volume-postgres:/var/lib/postgresql/data                                     # "local" volume
+      - ./src/main/resources/init.sql                                                   # postgres já populado
+    networks:
+      - backend-database-network
+#   pgadmin:
+#     container_name: database_client
+#     image: dpage/pgadmin4
+#     environment:
+#       PGADMIN_DEFAULT_EMAIL: "test@gmail.com"
+#       PGADMIN_DEFAULT_PASSWORD: "postgres"
+#     ports:
+#       - "16543:80"
+#     depends_on:
+#       - postgres
+#     networks:
+#       - backend-database-network
+
+volumes:
+  db-volume-postgres:
+    external: false
+
+networks:
+  backend-database-network:
