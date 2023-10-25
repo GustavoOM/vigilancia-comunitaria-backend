@@ -1,6 +1,7 @@
 package scc.vigilancia.comunitaria.models;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 import org.hibernate.Hibernate;
 
@@ -23,6 +24,7 @@ public class Community {
     @Column(name = "nome")
     private String name;
 
+    @JsonIgnore
     @ManyToMany
     @JoinTable(name = "COMUNIDADE_USUARIO",
             joinColumns = @JoinColumn(name = "id_comunidade"),

@@ -1,4 +1,5 @@
 package scc.vigilancia.comunitaria.models;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -27,6 +28,10 @@ public class User implements UserDetails {
 
     @ManyToMany(mappedBy = "members",fetch = FetchType.LAZY)
     private List<Community> communities;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "author", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Post> posts;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

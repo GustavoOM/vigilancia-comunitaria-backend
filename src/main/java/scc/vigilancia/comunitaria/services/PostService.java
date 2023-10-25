@@ -6,12 +6,16 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import scc.vigilancia.comunitaria.dto.ApiResponse;
 import scc.vigilancia.comunitaria.dto.NewPostRequest;
+import scc.vigilancia.comunitaria.dto.PostDTO;
 import scc.vigilancia.comunitaria.enums.PostType;
 import scc.vigilancia.comunitaria.enums.StatusType;
 import scc.vigilancia.comunitaria.models.Community;
 import scc.vigilancia.comunitaria.models.Post;
 import scc.vigilancia.comunitaria.models.User;
 import scc.vigilancia.comunitaria.repositories.PostRepository;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 @Service
@@ -50,4 +54,19 @@ public class PostService {
                 .build();
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
+
+    public ResponseEntity<Object> findAll() {
+        List<Post> posts = postRepository.findAll();
+        List<PostDTO> postsDTOs = new ArrayList<>();
+        for(Post post : posts) {
+            PostDTO postDTO = new PostDTO(post);
+            postsDTOs.add(postDTO);
+        }
+        return ResponseEntity.status(HttpStatus.OK).body(postsDTOs);
+    }
 }
+
+
+
+
+

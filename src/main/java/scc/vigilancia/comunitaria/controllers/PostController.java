@@ -17,7 +17,7 @@ import scc.vigilancia.comunitaria.services.UserService;
 @RestController
 @RequestMapping("/post")
 @Slf4j
-@Api(tags = "Endpoints para criar postagem")
+@Api(tags = "Endpoints postagem")
 @CrossOrigin(origins = {"http://localhost:4200"})
 public class PostController {
 
@@ -31,5 +31,11 @@ public class PostController {
     @ApiOperation(nickname = "Criar postagem", value = "Criar postagem", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Object> createPost(@RequestBody NewPostRequest newPostRequest) {
         return postService.createNewPost(newPostRequest);
+    }
+
+    @GetMapping
+    @ApiOperation(nickname = "Listar postagem", value = "Listar todas as postagens", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Object> findAllPosts() {
+        return postService.findAll();
     }
 }
