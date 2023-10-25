@@ -9,6 +9,7 @@ import scc.vigilancia.comunitaria.enums.StatusType;
 import scc.vigilancia.comunitaria.enums.UserType;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "POSTAGEM")
@@ -40,6 +41,8 @@ public class Post {
     @Enumerated(EnumType.ORDINAL)
     private StatusType status;
 
+    @ManyToMany(mappedBy = "posts",fetch = FetchType.LAZY)
+    private List<Image> images;
 }
 
 

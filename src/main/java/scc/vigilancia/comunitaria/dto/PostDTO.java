@@ -1,7 +1,11 @@
 package scc.vigilancia.comunitaria.dto;
 
 import lombok.Data;
+import scc.vigilancia.comunitaria.models.Image;
 import scc.vigilancia.comunitaria.models.Post;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Data
 public class PostDTO {
@@ -23,6 +27,8 @@ public class PostDTO {
 
     private String status;
 
+    private List<String> images = new ArrayList<>();
+
     public PostDTO(Post post){
         id = post.getId();
         emailAuthor = post.getAuthor().getEmail();
@@ -33,6 +39,9 @@ public class PostDTO {
         content = post.getContent();
         type = post.getType().name();
         status = post.getStatus().name();
+        for(Image image : post.getImages()){
+            images.add(image.getCaminhoS3());
+        }
     }
 
 }
