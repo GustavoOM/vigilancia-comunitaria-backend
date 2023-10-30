@@ -18,7 +18,7 @@ import scc.vigilancia.comunitaria.services.UserService;
 @RequestMapping("/admin")
 @Slf4j
 @Api(tags = "Endpoints do administrador")
-@CrossOrigin(origins = {"http://localhost:4200"})
+@CrossOrigin(origins = {"*"})
 public class AdminController {
     private final UserService userService;
 
