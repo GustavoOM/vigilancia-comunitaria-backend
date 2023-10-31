@@ -1,18 +1,17 @@
 IMG = 1.5
 
 docker:
-	$(call build)
+	$(call buildfn)
 
 publish:
-	$(call publish)
+	$(call publishfn)
 
-define build
-#	TODO: docker login pipeline
-    docker build -t projeto:$(IMG) . --no-cache && \
-    docker tag projeto:$(IMG) raquelvaladaojs/projeto:$(IMG) && \
+define buildfn
+    docker build -t projeto:$(IMG) . --no-cache
+    docker tag projeto:$(IMG) raquelvaladaojs/projeto:$(IMG)
     docker push raquelvaladaojs/projeto:$(IMG)
 endef
 
-define publish
+define publishfn
     echo "TODO"
 endef
