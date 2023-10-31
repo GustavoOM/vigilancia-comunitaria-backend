@@ -1,6 +1,7 @@
 package scc.vigilancia.comunitaria.models;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
+import lombok.ToString;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import scc.vigilancia.comunitaria.enums.UserType;
@@ -26,7 +27,12 @@ public class User implements UserDetails {
     @Enumerated(EnumType.STRING)
     private UserType permission;
 
-    @ManyToMany(mappedBy = "members",fetch = FetchType.LAZY)
+
+    @ManyToMany
+    @JoinTable(name = "COMUNIDADE_USUARIO",
+            joinColumns = @JoinColumn(name = "email_usuario"),
+            inverseJoinColumns = @JoinColumn(name = "id_comunidade"))
+    @ToString.Exclude
     private List<Community> communities;
 
     @JsonIgnore

@@ -3,7 +3,6 @@ package scc.vigilancia.comunitaria.dto;
 import lombok.Data;
 @Data
 public class NewPostRequest {
-    private String emailAuthor;
 
     private Integer idCommunity;
 
