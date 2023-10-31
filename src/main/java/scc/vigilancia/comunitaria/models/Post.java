@@ -27,9 +27,6 @@ public class Post {
     @JoinColumn(name = "id_comunidade")
     private Community community;
 
-    @Column(name = "titulo")
-    private String title;
-
     @Column(name = "conteudo")
     private String content;
 
