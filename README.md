@@ -41,6 +41,9 @@ docker-compose build --no-cache && docker compose up -d
 AWS_ACCESS_KEY_ID=access_key_aws
 AWS_SECRET_ACCESS_KEY=secret_key_aws
 S3_BUCKET=nome_do_bucket_pra_salvar_foto
+DB_USERNAME=user banco
+DB_PASSWORD=senha banco
+DB_SERVER=url banco
 ```
-- O application.yaml utilizado no projeto tem duas URL do banco: uma localhost e outra referente ao nome do container. Uma mudança futura será criar múltiplos application.yaml
+**O docker-compose usa automaticamente o application-docker.yaml e faz referencia ao banco na AWS. Não é necessário fazer mudanças.
 - Caso hajam mudanças no backend, basta rodar o comando do docker compose descrito acima para as mudanças serem aplicadas e os novos containers rodarem

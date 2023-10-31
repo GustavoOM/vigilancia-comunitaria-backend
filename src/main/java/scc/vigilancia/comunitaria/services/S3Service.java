@@ -40,7 +40,7 @@ public class S3Service {
         } catch (IOException e) {
             throw new IllegalArgumentException("Image corrupted");
         }
-        return "https://".concat(bucket).concat("s3.sa-east-1.amazonaws.com/").concat(imageKey);
+        return "https://".concat(bucket).concat(".s3.sa-east-1.amazonaws.com/").concat(imageKey);
     }
 
     private String extractFileExtension(MultipartFile file) {

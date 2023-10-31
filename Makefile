@@ -1,12 +1,18 @@
-IMG = latest
+IMG = 1.5
 
-# Rodar make docker IMG=1.x+1
 docker:
-    docker build -t projeto:$(IMG) . --no-cache && docker tag projeto:$(IMG) raquelvaladaojs/projeto:$(IMG) && docker push raquelvaladaojs/projeto:$(IMG)
+	$(call build)
 
-#TODO deploy GCP
 publish:
-    echo "Hello World"
+	$(call publish)
 
-run:
-    docker run -d -p 80:8080 --env-file ./.env raquelvaladaojs/projeto:$(IMG)
+define build
+#	TODO: docker login pipeline
+    docker build -t projeto:$(IMG) . --no-cache && \
+    docker tag projeto:$(IMG) raquelvaladaojs/projeto:$(IMG) && \
+    docker push raquelvaladaojs/projeto:$(IMG)
+endef
+
+define publish
+    echo "TODO"
+endef
