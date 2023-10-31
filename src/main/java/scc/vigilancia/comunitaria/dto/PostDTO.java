@@ -19,8 +19,6 @@ public class PostDTO {
 
     private String nameCommunity;
 
-    private String title;
-
     private String content;
 
     private String type;

@@ -10,6 +10,7 @@ import software.amazon.awssdk.services.s3.S3Client;
 import software.amazon.awssdk.services.s3.model.PutObjectRequest;
 
 import java.io.IOException;
+import java.util.Objects;
 import java.util.UUID;
 
 @Service
@@ -18,37 +19,32 @@ public class S3Service {
 
     private final S3Client amazonS3Client;
 
+    @Value("${s3.bucket}")
+    private String bucket;
+
     public S3Service(S3Client amazonS3Client) {
         this.amazonS3Client = amazonS3Client;
     }
 
-    @Value("${s3.bucket}")
-    private String bucket;
-
-    public void savePost(MultipartFile file) {
-        //TODO: gather owner data
-        createS3Request(file);
-        //TODO: save full post
-    }
-
-    private void createS3Request(MultipartFile file) {
+    public String createS3Request(MultipartFile fileName) {
         String imageUUID = UUID.randomUUID().toString();
+        String imageKey = imageUUID.concat(".").concat(extractFileExtension(fileName));
 
         PutObjectRequest objectRequest = PutObjectRequest.builder()
                 .bucket(bucket)
-                .key(file.getOriginalFilename())
+                .key(imageKey)
                 .build();
         try {
-            amazonS3Client.putObject(objectRequest, RequestBody.fromBytes(file.getBytes()));
+            amazonS3Client.putObject(objectRequest, RequestBody.fromBytes(fileName.getBytes()));
             log.info("[S3Service - OK]: Foto salva no S3 ");
         } catch (IOException e) {
             throw new IllegalArgumentException("Image corrupted");
         }
-        //TODO: save uuid to database
+        return "https://".concat(bucket).concat("s3.sa-east-1.amazonaws.com/").concat(imageKey);
     }
 
-    private boolean isImageValid(MultipartFile file) {
-        //todo: validate size and format
-        return file == null || file.isEmpty();
+    private String extractFileExtension(MultipartFile file) {
+        return Objects.requireNonNull(file.getOriginalFilename()).split("\\.")[1];
     }
+
 }

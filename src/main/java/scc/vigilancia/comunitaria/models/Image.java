@@ -22,11 +22,4 @@ public class Image {
     @Column(name = "caminho_s3")
     private String caminhoS3;
 
-    @JsonIgnore
-    @ManyToMany
-    @JoinTable(name = "POSTAGEM_IMAGEM",
-            joinColumns = @JoinColumn(name = "id_imagem"),
-            inverseJoinColumns = @JoinColumn(name = "id_postagem"))
-    @ToString.Exclude
-    private List<Post> posts;
 }

@@ -38,7 +38,12 @@ public class Post {
     @Enumerated(EnumType.ORDINAL)
     private StatusType status;
 
-    @ManyToMany(mappedBy = "posts",fetch = FetchType.LAZY)
+    @ManyToMany(cascade = CascadeType.PERSIST)
+    @JoinTable(
+            name = "POSTAGEM_IMAGEM",
+            joinColumns = @JoinColumn(name = "id_postagem"),
+            inverseJoinColumns = @JoinColumn(name = "id_imagem")
+    )
     private List<Image> images;
 }
 

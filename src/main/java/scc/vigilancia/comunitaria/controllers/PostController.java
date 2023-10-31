@@ -14,6 +14,7 @@ import scc.vigilancia.comunitaria.dto.NewUserRequest;
 import scc.vigilancia.comunitaria.exceptions.EntityNotFoundException;
 import scc.vigilancia.comunitaria.services.AuthenticationService;
 import scc.vigilancia.comunitaria.services.PostService;
+import scc.vigilancia.comunitaria.services.S3Service;
 import scc.vigilancia.comunitaria.services.UserService;
 
 @RestController
@@ -31,8 +32,9 @@ public class PostController {
 
     @PostMapping("/create-post")
     @ApiOperation(nickname = "Criar postagem", value = "Criar postagem", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Object> createPost(@RequestBody NewPostRequest newPostRequest) throws EntityNotFoundException {
-        return postService.createNewPost(newPostRequest);
+    public ResponseEntity<Object> createPost(NewPostRequest newPostRequest,
+                                             @RequestPart(name = "image", required = false) MultipartFile file) throws EntityNotFoundException {
+        return postService.createNewPost(newPostRequest, file);
     }
 
     @GetMapping

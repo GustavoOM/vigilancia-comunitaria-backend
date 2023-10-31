@@ -29,17 +29,15 @@ CREATE TABLE "postagem" (
   PRIMARY KEY ("id"),
   FOREIGN KEY ("id_autor", "id_comunidade") REFERENCES "comunidade_usuario"("email_usuario", "id_comunidade")
 );
---check tipo ou tabela tipo-nome
---check status ou tabela status-nome
 
 CREATE TABLE "imagem" (
-  "caminho_s3" VARCHAR(100) NOT NULL,
+  "caminho_s3" VARCHAR(255) NOT NULL,
   PRIMARY KEY ("caminho_s3")
 );
 
 CREATE TABLE "postagem_imagem" (
   "id_postagem" INTEGER NOT NULL,
-  "id_imagem" VARCHAR(100) NOT null,
+  "id_imagem" VARCHAR(255) NOT null,
   PRIMARY KEY ("id_postagem", "id_imagem"),
   FOREIGN KEY ("id_postagem") REFERENCES "postagem"("id"),
   FOREIGN KEY ("id_imagem") REFERENCES "imagem"("caminho_s3")
