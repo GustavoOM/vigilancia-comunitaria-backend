@@ -8,8 +8,6 @@ public class NewPostRequest {
 
     private Integer idCommunity;
 
-    private String title;
-
     private String content;
 
     private String type;

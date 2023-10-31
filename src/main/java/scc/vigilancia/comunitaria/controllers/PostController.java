@@ -31,7 +31,7 @@ public class PostController {
 
     @PostMapping("/create-post")
     @ApiOperation(nickname = "Criar postagem", value = "Criar postagem", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Object> createPost(@RequestBody NewPostRequest newPostRequest, @RequestPart(name = "image") MultipartFile file) throws EntityNotFoundException {
+    public ResponseEntity<Object> createPost(@RequestBody NewPostRequest newPostRequest) throws EntityNotFoundException {
         return postService.createNewPost(newPostRequest);
     }
 

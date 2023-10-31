@@ -42,7 +42,6 @@ public class PostService {
         Community community = communityService.findCommunityById(newPostRequest.getIdCommunity());
         post.setCommunity(community);
 
-        post.setTitle(newPostRequest.getTitle());
         post.setContent(newPostRequest.getContent());
         post.setType(PostType.valueOf(newPostRequest.getType()));
         post.setStatus(StatusType.valueOf(newPostRequest.getStatus()));

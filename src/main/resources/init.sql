@@ -23,7 +23,6 @@ CREATE TABLE "postagem" (
   "id" SERIAL NOT NULL,
   "id_autor" VARCHAR(255) NOT NULL,
   "id_comunidade" INTEGER NOT NULL,
-  "titulo" VARCHAR(255) NOT NULL,
   "conteudo" TEXT,
   "tipo" INTEGER NOT NULL,
   "status" INTEGER NOT NULL,

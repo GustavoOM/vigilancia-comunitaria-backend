@@ -35,7 +35,6 @@ public class PostDTO {
         nameAuthor = post.getAuthor().getName();
         idCommunity = post.getCommunity().getId();
         nameCommunity = post.getCommunity().getName();
-        title = post.getTitle();
         content = post.getContent();
         type = post.getType().name();
         status = post.getStatus().name();
