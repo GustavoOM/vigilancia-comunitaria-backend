@@ -6,6 +6,7 @@ import lombok.*;
 import org.hibernate.Hibernate;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -25,12 +26,8 @@ public class Community {
     private String name;
 
     @JsonIgnore
-    @ManyToMany
-    @JoinTable(name = "COMUNIDADE_USUARIO",
-            joinColumns = @JoinColumn(name = "id_comunidade"),
-            inverseJoinColumns = @JoinColumn(name = "email_usuario"))
-    @ToString.Exclude
-    private List<User> members;
+    @ManyToMany(mappedBy = "communities",fetch = FetchType.LAZY)
+    private List<User> members = new ArrayList<>();
 
     @Override
     public boolean equals(Object o) {

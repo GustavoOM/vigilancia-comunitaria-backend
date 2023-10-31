@@ -9,6 +9,7 @@ import scc.vigilancia.comunitaria.dto.NewPostRequest;
 import scc.vigilancia.comunitaria.dto.PostDTO;
 import scc.vigilancia.comunitaria.enums.PostType;
 import scc.vigilancia.comunitaria.enums.StatusType;
+import scc.vigilancia.comunitaria.exceptions.EntityNotFoundException;
 import scc.vigilancia.comunitaria.models.Community;
 import scc.vigilancia.comunitaria.models.Post;
 import scc.vigilancia.comunitaria.models.User;
@@ -33,15 +34,14 @@ public class PostService {
         this.communityService = communityService;
     }
 
-    public ResponseEntity<Object> createNewPost(NewPostRequest newPostRequest) {
-        User user = userService.findUserByEmail(newPostRequest.getEmailAuthor());
+    public ResponseEntity<Object> createNewPost(NewPostRequest newPostRequest) throws EntityNotFoundException {
+        User user = userService.findUserByEmail(userService.getIdLoggedUser());
         Post post = new Post();
         post.setAuthor(user);
         //Comunidade criada apenas para testes
         Community community = communityService.findCommunityById(newPostRequest.getIdCommunity());
         post.setCommunity(community);
 
-        post.setTitle(newPostRequest.getTitle());
         post.setContent(newPostRequest.getContent());
         post.setType(PostType.valueOf(newPostRequest.getType()));
         post.setStatus(StatusType.valueOf(newPostRequest.getStatus()));

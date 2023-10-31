@@ -39,5 +39,4 @@ public class CommunityService{
         Community found = community.get();
         return found;
     }
-
 }

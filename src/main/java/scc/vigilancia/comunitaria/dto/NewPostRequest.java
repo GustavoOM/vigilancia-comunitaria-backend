@@ -1,13 +1,12 @@
 package scc.vigilancia.comunitaria.dto;
 
 import lombok.Data;
+import org.springframework.web.multipart.MultipartFile;
+
 @Data
 public class NewPostRequest {
-    private String emailAuthor;
 
     private Integer idCommunity;
-
-    private String title;
 
     private String content;
 

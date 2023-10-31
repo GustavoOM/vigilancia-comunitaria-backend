@@ -6,6 +6,8 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import scc.vigilancia.comunitaria.dto.NewPostRequest;
+import scc.vigilancia.comunitaria.services.CommunityService;
 import scc.vigilancia.comunitaria.services.S3Service;
 
 @RestController
@@ -15,9 +17,11 @@ import scc.vigilancia.comunitaria.services.S3Service;
 public class CommunityController {
 
     private final S3Service s3Service;
+    private final CommunityService communityService;
 
-    public CommunityController(S3Service s3Service) {
+    public CommunityController(S3Service s3Service, CommunityService communityService) {
         this.s3Service = s3Service;
+        this.communityService = communityService;
     }
 
     @PostMapping(consumes = {
@@ -29,5 +33,4 @@ public class CommunityController {
         s3Service.savePost(file);
         return ResponseEntity.ok("ok");
     }
-
 }

@@ -8,8 +8,10 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import scc.vigilancia.comunitaria.dto.NewPostRequest;
 import scc.vigilancia.comunitaria.dto.NewUserRequest;
+import scc.vigilancia.comunitaria.exceptions.EntityNotFoundException;
 import scc.vigilancia.comunitaria.services.AuthenticationService;
 import scc.vigilancia.comunitaria.services.PostService;
 import scc.vigilancia.comunitaria.services.UserService;
@@ -17,7 +19,7 @@ import scc.vigilancia.comunitaria.services.UserService;
 @RestController
 @RequestMapping("/post")
 @Slf4j
-@Api(tags = "Endpoints para criar postagem")
+@Api(tags = "Endpoints postagem")
 @CrossOrigin(origins = {"*"})
 public class PostController {
 
@@ -29,7 +31,7 @@ public class PostController {
 
     @PostMapping("/create-post")
     @ApiOperation(nickname = "Criar postagem", value = "Criar postagem", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Object> createPost(@RequestBody NewPostRequest newPostRequest) {
+    public ResponseEntity<Object> createPost(@RequestBody NewPostRequest newPostRequest) throws EntityNotFoundException {
         return postService.createNewPost(newPostRequest);
     }
 

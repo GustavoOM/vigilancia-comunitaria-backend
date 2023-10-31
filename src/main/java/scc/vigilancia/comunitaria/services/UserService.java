@@ -3,6 +3,7 @@ package scc.vigilancia.comunitaria.services;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Service;
@@ -12,6 +13,7 @@ import scc.vigilancia.comunitaria.dto.NewUserMembroRequest;
 import scc.vigilancia.comunitaria.dto.NewUserRequest;
 import scc.vigilancia.comunitaria.enums.UserType;
 import scc.vigilancia.comunitaria.exceptions.EntityNotFoundException;
+import scc.vigilancia.comunitaria.models.Community;
 import scc.vigilancia.comunitaria.models.User;
 import scc.vigilancia.comunitaria.repositories.UserRepository;
 
@@ -24,11 +26,13 @@ public class UserService implements UserDetailsService {
 
     private final UserRepository userRepository;
     private final MD5PasswordEncoder md5PasswordEncoder;
+    private final CommunityService communityService;
 
 
-    public UserService(UserRepository userRepository, MD5PasswordEncoder md5PasswordEncoder) {
+    public UserService(UserRepository userRepository, MD5PasswordEncoder md5PasswordEncoder, CommunityService communityService) {
         this.userRepository = userRepository;
         this.md5PasswordEncoder = md5PasswordEncoder;
+        this.communityService = communityService;
     }
 
     public ResponseEntity<Object> createNewUser(NewUserRequest newUserRequest) {
@@ -37,6 +41,11 @@ public class UserService implements UserDetailsService {
         user.setName(newUserRequest.getName());
         user.setPermission(UserType.valueOf(newUserRequest.getPermission()));
         user.setPassword(md5PasswordEncoder.encode(newUserRequest.getPassword()));
+
+        //Coloca o usuário na comunidade 1
+        Community community = communityService.findCommunityById(1);
+        user.setCommunities(List.of(community));
+
         userRepository.save(user);
         ApiResponse response = ApiResponse
                 .builder()
@@ -52,7 +61,13 @@ public class UserService implements UserDetailsService {
         user.setName(newUserMembroRequest.getName());
         user.setPermission(UserType.MEMBRO);
         user.setPassword(md5PasswordEncoder.encode(newUserMembroRequest.getPassword()));
+
+        //Coloca o usuário na comunidade 1
+        Community community = communityService.findCommunityById(1);
+        user.setCommunities(List.of(community));
+
         userRepository.save(user);
+
         ApiResponse response = ApiResponse
                 .builder()
                 .code("SUCESSO")
@@ -77,5 +92,14 @@ public class UserService implements UserDetailsService {
     public UserDetails loadUserByUsername(String username) {
         log.info("[ UserService ] - Finding user by login.");
         return findUserByEmail(username);
+    }
+
+    public String getIdLoggedUser() throws EntityNotFoundException {
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        String emailUsuario = user.getEmail();
+        if(emailUsuario == null){
+            throw new EntityNotFoundException("Não existe nenhum usuário logado");
+        }
+        return emailUsuario;
     }
 }
