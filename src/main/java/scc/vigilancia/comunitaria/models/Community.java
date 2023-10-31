@@ -29,10 +29,6 @@ public class Community {
     @ManyToMany(mappedBy = "communities",fetch = FetchType.LAZY)
     private List<User> members = new ArrayList<>();
 
-    public void addUsers(User user){
-        members.add(user);
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
