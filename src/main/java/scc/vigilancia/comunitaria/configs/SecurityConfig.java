@@ -70,9 +70,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(WHITELIST_ENDPOINTS).permitAll()
                 .and()
                 .exceptionHandling()
-//                .accessDeniedHandler(new CustomAccessDeniedHandler())
                 .and()
-                .cors().and()
+                .cors().configurationSource(corsConfigurationSource()).and()
                 .csrf().disable()
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
@@ -85,8 +84,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Bean
     CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration config = new CorsConfiguration();
-        config.setAllowedOrigins(List.of("http://localhost:4200", "http://ec2-15-228-86-83.sa-east-1.compute.amazonaws.com"));
-        config.setAllowedMethods(Arrays.asList("GET","POST"));
+        config.setAllowedOrigins(List.of("*"));
+
+        config.setAllowedMethods(Arrays.asList("GET","POST", "PUT", "DELETE"));
         config.setAllowedHeaders(Arrays.asList("Authorization", "Cache-Control", "Content-Type"));
         config.setAllowCredentials(true);
 
@@ -94,4 +94,5 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         source.registerCorsConfiguration("/**", config);
         return source;
     }
+
 }
