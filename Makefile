@@ -18,5 +18,5 @@ endef
 
 define publishfn
 	az login --user $(AZURE_USER) --password $(AZURE_PSWD)
-    az webapp config container set --name vigilancia-comunitaria --resource-group scc --docker-custom-image-name raquelvaladaojs/projeto:$(IMG) --docker-registry-server-url  http://registry.hub.docker.com --docker-registry-server-user $(DOCKER_USER) --docker-registry-server-password $(DOCKER_PSWD)
+	az webapp config container set --name vigilancia-comunitaria --resource-group scc --docker-custom-image-name raquelvaladaojs/projeto:$(IMG) --docker-registry-server-url  http://registry.hub.docker.com --docker-registry-server-user $(DOCKER_USER) --docker-registry-server-password $(DOCKER_PSWD)
 endef
