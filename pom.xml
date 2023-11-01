@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>scc</groupId>
 	<artifactId>vigilancia.comunitaria</artifactId>
-	<version>1.0</version>
+	<version>1.8</version>
 	<name>vigilancia.comunitaria</name>
 	<description>App de vigilância comunitária</description>
 	<properties>
