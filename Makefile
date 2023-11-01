@@ -4,11 +4,19 @@ DOCKER_PSWD = psswd
 AZURE_USER = user
 AZURE_PSWD = psswd
 
+dev:
+	$(call devfn)
+
 docker:
 	$(call buildfn)
 
 publish:
 	$(call publishfn)
+
+define devfn
+	docker-compose build --no-cache
+	docker compose up -d
+endef
 
 define buildfn
     docker build -t projeto:$(IMG) . --no-cache

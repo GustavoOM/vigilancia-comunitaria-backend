@@ -8,7 +8,7 @@
 - Essa aplicação possui um arquivo *docker-compose.yaml* na raíz do repositório, contendo os containers: da aplicação, do banco já populado com alguns dados iniciais (init.sql) e do PgAdmin para visualização de dados do banco.
 - Estando **dentro da pasta raíz** do repositório e com o Docker ligado, digite o comando num terminal como o Git Bash:
 ```
-docker-compose build --no-cache && docker compose up -d
+make dev
 ```
 - O resultado final no Docker deve ser como o seguinte, e para ver os logs de um container clique na parte cinza em algum container
   ![Exemplo de Imagem](readme_imgs/containers.png)
@@ -45,5 +45,5 @@ DB_USERNAME=user banco
 DB_PASSWORD=senha banco
 DB_SERVER=url banco
 ```
-**O docker-compose usa automaticamente o application-docker.yaml e faz referencia ao banco na AWS. Não é necessário fazer mudanças.
+- O docker-compose usa automaticamente o application-docker.yaml e faz referencia ao banco na AWS. Não é necessário fazer mudanças.
 - Caso hajam mudanças no backend, basta rodar o comando do docker compose descrito acima para as mudanças serem aplicadas e os novos containers rodarem
