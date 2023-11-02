@@ -1,6 +1,3 @@
-# Docs for the Azure Web Apps Deploy action: https://github.com/Azure/webapps-deploy
-# More GitHub Actions for Azure: https://github.com/Azure/actions
-
 name: Build and deploy container app to Azure Web App - vigilancia-comunitaria
 
 on:
@@ -22,7 +19,6 @@ jobs:
     - name: Log in to registry
       uses: docker/login-action@v2
       with:
-        registry: https://docker.io/
         username: ${{ secrets.AzureAppService_ContainerUsername_4c8f9636fd334b8694d4e84c8c34b1a5 }}
         password: ${{ secrets.AzureAppService_ContainerPassword_545ac0b179f0404f81206ae6431e6766 }}
 
@@ -30,7 +26,8 @@ jobs:
       uses: docker/build-push-action@v3
       with:
         push: true
-        tags: docker.io/${{ secrets.AzureAppService_ContainerUsername_4c8f9636fd334b8694d4e84c8c34b1a5 }}/projeto:${{ github.sha }}
+        tags: |
+          docker.io/${{ secrets.AzureAppService_ContainerUsername_4c8f9636fd334b8694d4e84c8c34b1a5 }}/projeto:${{ github.sha }}
         file: ./Dockerfile
 
   deploy:
