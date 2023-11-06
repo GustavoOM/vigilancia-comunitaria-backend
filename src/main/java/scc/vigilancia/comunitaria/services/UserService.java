@@ -9,8 +9,8 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Service;
 import scc.vigilancia.comunitaria.configs.MD5PasswordEncoder;
 import scc.vigilancia.comunitaria.dto.ApiResponse;
-import scc.vigilancia.comunitaria.dto.NewUserMembroRequest;
-import scc.vigilancia.comunitaria.dto.NewUserRequest;
+import scc.vigilancia.comunitaria.dto.New.NewUserMembroRequest;
+import scc.vigilancia.comunitaria.dto.New.NewUserRequest;
 import scc.vigilancia.comunitaria.enums.UserType;
 import scc.vigilancia.comunitaria.exceptions.EntityNotFoundException;
 import scc.vigilancia.comunitaria.models.Community;
@@ -51,6 +51,21 @@ public class UserService implements UserDetailsService {
                 .builder()
                 .code("SUCESSO")
                 .message(newUserRequest.getName() + " criado!")
+                .build();
+        return ResponseEntity.status(HttpStatus.CREATED).body(response);
+    }
+
+    public ResponseEntity<Object> enterCommunity(Integer idCommunity) {
+        User user = findUserByEmail(getIdLoggedUser());
+        Community community = communityService.findCommunityById(idCommunity);
+
+        user.addCommunity(community);
+        userRepository.save(user);
+
+        ApiResponse response = ApiResponse
+                .builder()
+                .code("SUCESSO")
+                .message("Membro adicionado a comunidade!")
                 .build();
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }

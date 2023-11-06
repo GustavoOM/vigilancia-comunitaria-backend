@@ -9,13 +9,9 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import scc.vigilancia.comunitaria.dto.NewPostRequest;
-import scc.vigilancia.comunitaria.dto.NewUserRequest;
+import scc.vigilancia.comunitaria.dto.New.NewPostRequest;
 import scc.vigilancia.comunitaria.exceptions.EntityNotFoundException;
-import scc.vigilancia.comunitaria.services.AuthenticationService;
 import scc.vigilancia.comunitaria.services.PostService;
-import scc.vigilancia.comunitaria.services.S3Service;
-import scc.vigilancia.comunitaria.services.UserService;
 
 @RestController
 @RequestMapping("/post")
@@ -41,5 +37,11 @@ public class PostController {
     @ApiOperation(nickname = "Listar postagem", value = "Listar todas as postagens", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Object> findAllPosts() {
         return postService.findAll();
+    }
+
+    @GetMapping("/by-community")
+    @ApiOperation(nickname = "Listar postagens de uma comunidade", value = "Listar todas as postagens de uma comunidade", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Object> findAllPostsByCommunity(@RequestParam(name = "Id da comunidade") Integer idCommunity) throws EntityNotFoundException{
+        return postService.findAllByCommunity(idCommunity);
     }
 }

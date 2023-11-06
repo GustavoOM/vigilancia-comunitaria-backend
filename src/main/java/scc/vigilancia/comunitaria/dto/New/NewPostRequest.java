@@ -1,4 +1,4 @@
-package scc.vigilancia.comunitaria.dto;
+package scc.vigilancia.comunitaria.dto.New;
 
 import lombok.Data;
 import org.springframework.web.multipart.MultipartFile;

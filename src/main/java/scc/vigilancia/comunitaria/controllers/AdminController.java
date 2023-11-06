@@ -8,10 +8,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import scc.vigilancia.comunitaria.dto.LoginRequest;
-import scc.vigilancia.comunitaria.dto.NewUserRequest;
-import scc.vigilancia.comunitaria.dto.TokenResponse;
-import scc.vigilancia.comunitaria.services.AuthenticationService;
+import scc.vigilancia.comunitaria.dto.New.NewUserRequest;
 import scc.vigilancia.comunitaria.services.UserService;
 
 @RestController

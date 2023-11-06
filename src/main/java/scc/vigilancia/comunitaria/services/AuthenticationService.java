@@ -6,20 +6,15 @@ import com.auth0.jwt.exceptions.JWTVerificationException;
 import com.google.common.base.Strings;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 import scc.vigilancia.comunitaria.dto.LoginRequest;
-import scc.vigilancia.comunitaria.dto.NewUserRequest;
 import scc.vigilancia.comunitaria.dto.TokenResponse;
 import scc.vigilancia.comunitaria.exceptions.InvalidInputException;
 import scc.vigilancia.comunitaria.models.User;
 
-import java.sql.Timestamp;
-import java.time.Instant;
 import java.util.Date;
 
 @Service
