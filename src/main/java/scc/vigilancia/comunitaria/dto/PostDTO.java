@@ -4,7 +4,7 @@ import lombok.Data;
 import scc.vigilancia.comunitaria.models.Image;
 import scc.vigilancia.comunitaria.models.Post;
 
-import java.time.LocalDate;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,11 +26,11 @@ public class PostDTO {
 
     private String status;
 
-    private LocalDate createdAt;
+    private Timestamp createdAt;
 
     private List<String> images = new ArrayList<>();
 
-    public PostDTO(Post post){
+    public PostDTO(Post post) {
         id = post.getId();
         emailAuthor = post.getAuthor().getEmail();
         nameAuthor = post.getAuthor().getName();
@@ -39,7 +39,8 @@ public class PostDTO {
         content = post.getContent();
         type = post.getType().name();
         status = post.getStatus().name();
-        for(Image image : post.getImages()){
+        createdAt = post.getCreatedAt();
+        for (Image image : post.getImages()) {
             images.add(image.getCaminhoS3());
         }
     }

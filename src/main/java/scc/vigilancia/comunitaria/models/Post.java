@@ -2,14 +2,11 @@ package scc.vigilancia.comunitaria.models;
 
 
 import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
 import scc.vigilancia.comunitaria.enums.PostType;
 import scc.vigilancia.comunitaria.enums.StatusType;
-import scc.vigilancia.comunitaria.enums.UserType;
 
 import javax.persistence.*;
-import java.time.LocalDate;
+import java.sql.Timestamp;
 import java.util.List;
 
 @Entity
@@ -40,7 +37,7 @@ public class Post {
     private StatusType status;
 
     @Column(name = "createdat")
-    private LocalDate createdAt;
+    private Timestamp createdAt;
 
     @ManyToMany(cascade = CascadeType.PERSIST)
     @JoinTable(
