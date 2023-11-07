@@ -89,10 +89,6 @@ public class UserService implements UserDetailsService {
         user.setPermission(UserType.MEMBRO);
         user.setPassword(md5PasswordEncoder.encode(newUserMembroRequest.getPassword()));
 
-        //Coloca o usuário na comunidade 1
-        Community community = communityService.findCommunityById(1);
-        user.setCommunities(List.of(community));
-
         userRepository.save(user);
 
         ApiResponse response = ApiResponse
