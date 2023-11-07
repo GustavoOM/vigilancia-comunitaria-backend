@@ -34,7 +34,7 @@ public class UserController {
     }
 
     @GetMapping("/communities")
-    @ApiOperation(nickname = "Listar comunidades do usuário", value = "Listar todas as comunidades de um usuário", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation(nickname = "Listar comunidades do usuário logado", value = "Listar todas as comunidades do usuário logado", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Object> findAllPostsByCommunity() {
         return userService.getCommunities();
     }
