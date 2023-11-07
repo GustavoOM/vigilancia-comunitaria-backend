@@ -39,4 +39,5 @@ public class CommunityController {
     public ResponseEntity<Object> findAll() {
         return communityService.findAll();
     }
+
 }

@@ -9,6 +9,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import scc.vigilancia.comunitaria.dto.New.NewCommunityRequest;
+import scc.vigilancia.comunitaria.exceptions.EntityNotFoundException;
 import scc.vigilancia.comunitaria.models.User;
 import scc.vigilancia.comunitaria.services.CommunityService;
 import scc.vigilancia.comunitaria.services.UserService;
@@ -30,5 +31,11 @@ public class UserController {
     @ApiOperation(nickname = "Adicionar membro a comunidade.", value = "Adiciona membro logado a comunidade.", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Object> enterCommunity(@RequestParam Integer idCommunity) {
         return userService.enterCommunity(idCommunity);
+    }
+
+    @GetMapping("/communities")
+    @ApiOperation(nickname = "Listar comunidades do usuário", value = "Listar todas as comunidades de um usuário", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Object> findAllPostsByCommunity() {
+        return userService.getCommunities();
     }
 }

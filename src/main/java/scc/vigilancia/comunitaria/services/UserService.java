@@ -9,6 +9,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Service;
 import scc.vigilancia.comunitaria.configs.MD5PasswordEncoder;
 import scc.vigilancia.comunitaria.dto.ApiResponse;
+import scc.vigilancia.comunitaria.dto.CommunityDTO;
 import scc.vigilancia.comunitaria.dto.New.NewUserMembroRequest;
 import scc.vigilancia.comunitaria.dto.New.NewUserRequest;
 import scc.vigilancia.comunitaria.enums.UserType;
@@ -17,6 +18,7 @@ import scc.vigilancia.comunitaria.models.Community;
 import scc.vigilancia.comunitaria.models.User;
 import scc.vigilancia.comunitaria.repositories.UserRepository;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -70,6 +72,16 @@ public class UserService implements UserDetailsService {
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 
+    public ResponseEntity<Object> getCommunities() {
+        User user = findUserByEmail(getIdLoggedUser());
+        List<CommunityDTO> communityDTOS = new ArrayList<>();
+        for (Community community : user.getCommunities()) {
+            CommunityDTO communityDTO = new CommunityDTO(community);
+            communityDTOS.add(communityDTO);
+        }
+        return ResponseEntity.status(HttpStatus.OK).body(communityDTOS);
+    }
+
     public ResponseEntity<Object> createNewUserMembro(NewUserMembroRequest newUserMembroRequest) {
         User user = new User();
         user.setEmail(newUserMembroRequest.getEmail());
@@ -117,4 +129,6 @@ public class UserService implements UserDetailsService {
         }
         return emailUsuario;
     }
+
+
 }
