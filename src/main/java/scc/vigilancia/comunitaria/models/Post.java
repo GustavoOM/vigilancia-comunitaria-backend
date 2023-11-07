@@ -38,6 +38,9 @@ public class Post {
     @Enumerated(EnumType.ORDINAL)
     private StatusType status;
 
+    @Column(name = "createdat")
+    private String createdAt;
+
     @ManyToMany(cascade = CascadeType.PERSIST)
     @JoinTable(
             name = "POSTAGEM_IMAGEM",

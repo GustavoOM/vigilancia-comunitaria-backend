@@ -25,6 +25,8 @@ public class PostDTO {
 
     private String status;
 
+    private String createdAt;
+
     private List<String> images = new ArrayList<>();
 
     public PostDTO(Post post){
