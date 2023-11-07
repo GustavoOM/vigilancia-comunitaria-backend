@@ -67,6 +67,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.authorizeRequests()
                 .antMatchers("/admin/**").hasAuthority(UserType.ADMINISTRADOR.name())
                 .antMatchers("/community/create").hasAuthority(UserType.ADMINISTRADOR.name())
+                .antMatchers("/community").hasAnyAuthority(UserType.ADMINISTRADOR.name(), UserType.MEMBRO.name(), UserType.MANTENEDOR.name())
                 .antMatchers("/user/enter-community").hasAnyAuthority(UserType.ADMINISTRADOR.name(), UserType.MEMBRO.name(), UserType.MANTENEDOR.name())
                 .antMatchers("/post/**").hasAnyAuthority(UserType.ADMINISTRADOR.name(), UserType.MEMBRO.name(), UserType.MANTENEDOR.name())
                 .antMatchers(WHITELIST_ENDPOINTS).permitAll()

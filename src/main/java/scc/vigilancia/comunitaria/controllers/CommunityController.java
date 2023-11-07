@@ -33,4 +33,10 @@ public class CommunityController {
     public ResponseEntity<Object> create(NewCommunityRequest newCommunityRequest) {
         return communityService.create(newCommunityRequest);
     }
+
+    @GetMapping
+    @ApiOperation(nickname = "Listar comunidades", value = "Listar todas as comunidades", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Object> findAll() {
+        return communityService.findAll();
+    }
 }

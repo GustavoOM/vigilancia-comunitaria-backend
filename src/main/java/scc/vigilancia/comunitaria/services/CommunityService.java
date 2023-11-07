@@ -5,7 +5,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import scc.vigilancia.comunitaria.dto.ApiResponse;
+import scc.vigilancia.comunitaria.dto.CommunityDTO;
 import scc.vigilancia.comunitaria.dto.New.NewCommunityRequest;
+import scc.vigilancia.comunitaria.dto.PostDTO;
 import scc.vigilancia.comunitaria.enums.PostType;
 import scc.vigilancia.comunitaria.enums.StatusType;
 import scc.vigilancia.comunitaria.exceptions.EntityNotFoundException;
@@ -13,6 +15,8 @@ import scc.vigilancia.comunitaria.models.Community;
 import scc.vigilancia.comunitaria.models.Post;
 import scc.vigilancia.comunitaria.repositories.CommunityRepository;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -47,5 +51,15 @@ public class CommunityService{
                 .message("Comunidade com id "+ communityCreated.getId()  +" criada!")
                 .build();
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
+    }
+
+    public ResponseEntity<Object> findAll() {
+        List<Community> communities = communityRepository.findAll();
+        List<CommunityDTO> communityDTOS = new ArrayList<>();
+        for (Community community : communities) {
+            CommunityDTO communityDTO = new CommunityDTO(community);
+            communityDTOS.add(communityDTO);
+        }
+        return ResponseEntity.status(HttpStatus.OK).body(communityDTOS);
     }
 }
