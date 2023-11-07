@@ -4,6 +4,7 @@ import lombok.Data;
 import scc.vigilancia.comunitaria.models.Image;
 import scc.vigilancia.comunitaria.models.Post;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,7 +26,7 @@ public class PostDTO {
 
     private String status;
 
-    private String createdAt;
+    private LocalDate createdAt;
 
     private List<String> images = new ArrayList<>();
 

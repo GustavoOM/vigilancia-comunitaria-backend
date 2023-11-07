@@ -9,6 +9,7 @@ import scc.vigilancia.comunitaria.enums.StatusType;
 import scc.vigilancia.comunitaria.enums.UserType;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.List;
 
 @Entity
@@ -39,7 +40,7 @@ public class Post {
     private StatusType status;
 
     @Column(name = "createdat")
-    private String createdAt;
+    private LocalDate createdAt;
 
     @ManyToMany(cascade = CascadeType.PERSIST)
     @JoinTable(
