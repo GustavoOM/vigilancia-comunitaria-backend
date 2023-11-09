@@ -26,6 +26,7 @@ CREATE TABLE "postagem" (
   "conteudo" TEXT,
   "tipo" INTEGER NOT NULL,
   "status" INTEGER NOT NULL,
+  "createdat" TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY ("id"),
   FOREIGN KEY ("id_autor", "id_comunidade") REFERENCES "comunidade_usuario"("email_usuario", "id_comunidade")
 );
