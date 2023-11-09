@@ -8,5 +8,6 @@ import java.util.List;
 
 @Repository
 public interface PostRepository extends JpaRepository<Post, Integer> {
-    public List<Post> findAllByCommunity_Id(Integer idCommunity);
+    public List<Post> findAllByOrderByCreatedAtDesc();
+    public List<Post> findAllByCommunity_IdOrderByCreatedAtDesc(Integer idCommunity);
 }

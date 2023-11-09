@@ -78,7 +78,7 @@ public class PostService {
     }
 
     public ResponseEntity<Object> findAll() {
-        List<Post> posts = postRepository.findAll();
+        List<Post> posts = postRepository.findAllByOrderByCreatedAtDesc();
         List<PostDTO> postsDTOs = new ArrayList<>();
         for (Post post : posts) {
             PostDTO postDTO = new PostDTO(post);
@@ -96,7 +96,7 @@ public class PostService {
         List<PostDTO> postsDTOs = new ArrayList<>();
 
         if (Objects.equals(grantedAuthority.getAuthority(), UserType.ADMINISTRADOR.name()) || user.getCommunities().stream().anyMatch(community -> community.getId().equals(communityId))){
-            List<Post> posts = postRepository.findAllByCommunity_Id(communityId);
+            List<Post> posts = postRepository.findAllByCommunity_IdOrderByCreatedAtDesc(communityId);
             for (Post post : posts) {
                 PostDTO postDTO = new PostDTO(post);
                 postsDTOs.add(postDTO);
