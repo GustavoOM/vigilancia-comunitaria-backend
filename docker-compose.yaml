@@ -22,7 +22,7 @@ services:
     ports:
       - "5433:5432"
     volumes:
-      - db-volume-postgres:/var/lib/postgresql/data                                     # "local" volume
+      - db-volume-postgresql:/var/lib/postgresql/data                                     # "local" volume
       - ./src/main/resources/init.sql:/docker-entrypoint-initdb.d/init.sql              # postgres já populado
     networks:
       - backend-database-network
@@ -40,7 +40,7 @@ services:
       - backend-database-network
 
 volumes:
-  db-volume-postgres:
+  db-volume-postgresql:
     external: false
 
 networks:
