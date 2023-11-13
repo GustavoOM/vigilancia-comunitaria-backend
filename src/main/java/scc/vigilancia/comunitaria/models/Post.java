@@ -9,6 +9,8 @@ import javax.persistence.*;
 import java.sql.Timestamp;
 import java.util.List;
 
+import org.hibernate.annotations.CreationTimestamp;
+
 @Entity
 @Table(name = "POSTAGEM")
 @Data
@@ -37,6 +39,7 @@ public class Post {
     private StatusType status;
 
     @Column(name = "createdat")
+    @CreationTimestamp
     private Timestamp createdAt;
 
     @ManyToMany(cascade = CascadeType.PERSIST)
