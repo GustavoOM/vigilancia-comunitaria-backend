@@ -38,4 +38,10 @@ public class UserController {
     public ResponseEntity<Object> findAllPostsByCommunity() {
         return userService.getCommunities();
     }
+
+    @GetMapping("/by-community/{idCommunity}")
+    @ApiOperation(nickname = "Listar usuarios de uma comunidade", value = "Listar todos os usuarios de uma comunidade", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Object> findAllUsersByCommunity(@PathVariable(name = "idCommunity") Integer idCommunity) throws EntityNotFoundException{
+        return userService.findAllByCommunity(idCommunity);
+    }
 }

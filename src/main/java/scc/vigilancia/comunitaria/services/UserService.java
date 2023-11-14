@@ -3,6 +3,7 @@ package scc.vigilancia.comunitaria.services;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -12,14 +13,18 @@ import scc.vigilancia.comunitaria.dto.ApiResponse;
 import scc.vigilancia.comunitaria.dto.CommunityDTO;
 import scc.vigilancia.comunitaria.dto.New.NewUserMembroRequest;
 import scc.vigilancia.comunitaria.dto.New.NewUserRequest;
+import scc.vigilancia.comunitaria.dto.PostDTO;
+import scc.vigilancia.comunitaria.dto.UserDTO;
 import scc.vigilancia.comunitaria.enums.UserType;
 import scc.vigilancia.comunitaria.exceptions.EntityNotFoundException;
 import scc.vigilancia.comunitaria.models.Community;
+import scc.vigilancia.comunitaria.models.Post;
 import scc.vigilancia.comunitaria.models.User;
 import scc.vigilancia.comunitaria.repositories.UserRepository;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 @Service
@@ -103,12 +108,25 @@ public class UserService implements UserDetailsService {
         Optional<User> user = userRepository
                 .findByEmail(email);
 
-        if(user.isEmpty()) {
+        if (user.isEmpty()) {
             throw new EntityNotFoundException("Usuário não encontrado");
         }
         User found = user.get();
         found.setEmail(found.getEmail().trim());
         return found;
+    }
+
+    public ResponseEntity<Object> findAllByCommunity(Integer communityId) throws EntityNotFoundException {
+        communityService.findCommunityById(communityId); //Verifica se a comunidade existe
+
+        List<UserDTO> userDTOS = new ArrayList<>();
+        List<User> users = userRepository.findAllByCommunities_IdOrderByNameAsc(communityId);
+        for (User user : users) {
+            UserDTO userDTO = new UserDTO(user);
+            userDTOS.add(userDTO);
+        }
+
+        return ResponseEntity.status(HttpStatus.OK).body(userDTOS);
     }
 
     @Override
@@ -120,7 +138,7 @@ public class UserService implements UserDetailsService {
     public String getIdLoggedUser() throws EntityNotFoundException {
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         String emailUsuario = user.getEmail();
-        if(emailUsuario == null){
+        if (emailUsuario == null) {
             throw new EntityNotFoundException("Não existe nenhum usuário logado");
         }
         return emailUsuario;
