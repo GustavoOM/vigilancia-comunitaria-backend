@@ -53,13 +53,13 @@ public class CommunityService{
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 
-    public ResponseEntity<Object> findAll() {
+    public List<CommunityDTO> findAll() {
         List<Community> communities = communityRepository.findAll();
         List<CommunityDTO> communityDTOS = new ArrayList<>();
         for (Community community : communities) {
             CommunityDTO communityDTO = new CommunityDTO(community);
             communityDTOS.add(communityDTO);
         }
-        return ResponseEntity.status(HttpStatus.OK).body(communityDTOS);
+        return communityDTOS;
     }
 }

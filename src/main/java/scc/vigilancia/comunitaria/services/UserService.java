@@ -59,6 +59,10 @@ public class UserService implements UserDetailsService {
 
     public ResponseEntity<Object> enterCommunity(Integer idCommunity) {
         User user = findUserByEmail(getIdLoggedUser());
+        return addUserToCommunity(idCommunity, user);
+    }
+
+    public ResponseEntity<Object> addUserToCommunity(Integer idCommunity, User user) {
         Community community = communityService.findCommunityById(idCommunity);
 
         user.addCommunity(community);
@@ -126,5 +130,15 @@ public class UserService implements UserDetailsService {
         return emailUsuario;
     }
 
+    //TODO: TODO
+    public ResponseEntity<Object> getCommunitiesByStatus() {
+        String userEmail = getIdLoggedUser();
+        List<CommunityDTO> communities = communityService.findAll();
 
+        // lista de participando
+        // lista de pendentes
+        //geral
+        return null;
+
+    }
 }
