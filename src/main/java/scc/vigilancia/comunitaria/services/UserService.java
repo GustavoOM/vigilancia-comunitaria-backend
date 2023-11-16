@@ -129,6 +129,18 @@ public class UserService implements UserDetailsService {
         return ResponseEntity.status(HttpStatus.OK).body(userDTOS);
     }
 
+    public ResponseEntity<Object> findAll() {
+        List<User> users = userRepository.findAllByOrderByNameAsc();
+
+        List<UserDTO> userDTOS = new ArrayList<>();
+        for (User user : users) {
+            UserDTO userDTO = new UserDTO(user);
+            userDTOS.add(userDTO);
+        }
+
+        return ResponseEntity.status(HttpStatus.OK).body(userDTOS);
+    }
+
     @Override
     public UserDetails loadUserByUsername(String username) {
         log.info("[ UserService ] - Finding user by login.");

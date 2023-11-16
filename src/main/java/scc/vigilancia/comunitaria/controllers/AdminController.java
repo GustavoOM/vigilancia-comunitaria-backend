@@ -28,4 +28,10 @@ public class AdminController {
     public ResponseEntity<Object> createUser(@RequestBody NewUserRequest newUserRequest) {
         return userService.createNewUser(newUserRequest);
     }
+
+    @GetMapping("/all-users")
+    @ApiOperation(nickname = "Listar todos usuários", value = "Listar todos os usuários cadastrados", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Object> findAllUsers() {
+        return userService.findAll();
+    }
 }
