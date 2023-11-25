@@ -13,15 +13,8 @@ import javax.persistence.*;
 @Setter
 @ToString
 @RequiredArgsConstructor
-@IdClass(InviteId.class)
 public class Invite {
-    @Id
-    @ManyToOne
-    @JoinColumn(name = "id_comunidade")
-    private Community community;
 
-    @Id
-    @ManyToOne
-    @JoinColumn(name = "email_usuario")
-    private User user;
+    @EmbeddedId
+    private InviteId id;
 }

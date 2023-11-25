@@ -11,7 +11,9 @@ import lombok.NoArgsConstructor;
 @Data
 public class PendingInvite {
 
+    private Integer communityId;
     private String communityName;
     private String userName;
+    private String userEmail;
     private String status;
 }

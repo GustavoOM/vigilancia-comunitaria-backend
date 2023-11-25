@@ -34,7 +34,7 @@ public class AdminController {
         return userService.createNewUser(newUserRequest);
     }
 
-    @GetMapping
+    @GetMapping("/invites")
     @ApiOperation(nickname = "Listar convites pendentes", value = "Listar convites pendentes", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Object> findAllInvites() {
         return inviteService.findAll();
