@@ -7,6 +7,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import scc.vigilancia.comunitaria.exceptions.EntityNotFoundException;
 import scc.vigilancia.comunitaria.services.InviteService;
 import scc.vigilancia.comunitaria.services.UserService;
 
@@ -39,7 +40,7 @@ public class UserController {
 
     @GetMapping("/by-community/{idCommunity}")
     @ApiOperation(nickname = "Listar usuarios de uma comunidade", value = "Listar todos os usuarios de uma comunidade", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Object> findAllUsersByCommunity(@PathVariable(name = "idCommunity") Integer idCommunity) throws EntityNotFoundException{
+    public ResponseEntity<Object> findAllUsersByCommunity(@PathVariable(name = "idCommunity") Integer idCommunity) throws EntityNotFoundException {
         return userService.findAllByCommunity(idCommunity);
     }
 
