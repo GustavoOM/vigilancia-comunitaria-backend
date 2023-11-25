@@ -5,6 +5,7 @@ package scc.vigilancia.comunitaria.controllers;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -37,7 +38,7 @@ public class CommunityController {
     @GetMapping
     @ApiOperation(nickname = "Listar comunidades", value = "Listar todas as comunidades", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Object> findAll() {
-        return communityService.findAll();
+        return ResponseEntity.status(HttpStatus.OK).body(communityService.findAll());
     }
 
 }

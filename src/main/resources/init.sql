@@ -44,6 +44,14 @@ CREATE TABLE "postagem_imagem" (
   FOREIGN KEY ("id_imagem") REFERENCES "imagem"("caminho_s3")
 );
 
+CREATE TABLE "convite" (
+  "id_comunidade" INTEGER NOT NULL,
+  "email_usuario" VARCHAR(255) NOT NULL,
+  PRIMARY KEY ("id_comunidade", "email_usuario"),
+  FOREIGN KEY ("id_comunidade") REFERENCES "comunidade"("id"),
+  FOREIGN KEY ("email_usuario") REFERENCES "usuario"("email")
+);
+
 INSERT INTO public.usuario
 (email, nome, senha, permissao)
 VALUES('admin@admin.com', 'admin', MD5('admin'), 'ADMINISTRADOR');
@@ -55,3 +63,4 @@ VALUES(nextval('comunidade_id_seq'::regclass), 'USP');
 INSERT INTO public.comunidade_usuario
 (id_comunidade, email_usuario)
 VALUES(1, 'admin@admin.com');
+

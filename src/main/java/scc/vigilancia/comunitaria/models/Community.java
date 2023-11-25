@@ -15,7 +15,6 @@ import java.util.Objects;
 @Getter
 @Setter
 @ToString
-@RequiredArgsConstructor
 public class Community {
 
     @Id
@@ -40,5 +39,14 @@ public class Community {
     @Override
     public int hashCode() {
         return getClass().hashCode();
+    }
+
+    public Community() {
+    }
+
+    public Community(Integer id, String name, List<User> members) {
+        this.id = id;
+        this.name = name;
+        this.members = members;
     }
 }
