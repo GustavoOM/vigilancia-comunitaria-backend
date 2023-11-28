@@ -34,7 +34,7 @@ public class PostController {
     }
 
     @GetMapping
-    @ApiOperation(nickname = "Listar postagem", value = "Listar todas as postagens", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation(nickname = "Listar postagem", value = "Listar todas as postagens das comunidades que o usuário logado faz parte", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Object> findAllPosts() {
         return postService.findAll();
     }
