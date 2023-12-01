@@ -9,12 +9,9 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Service;
 import scc.vigilancia.comunitaria.configs.MD5PasswordEncoder;
-import scc.vigilancia.comunitaria.dto.ApiResponse;
-import scc.vigilancia.comunitaria.dto.CommunityDTO;
+import scc.vigilancia.comunitaria.dto.*;
 import scc.vigilancia.comunitaria.dto.New.NewUserMembroRequest;
 import scc.vigilancia.comunitaria.dto.New.NewUserRequest;
-import scc.vigilancia.comunitaria.dto.PostDTO;
-import scc.vigilancia.comunitaria.dto.UserDTO;
 import scc.vigilancia.comunitaria.enums.UserType;
 import scc.vigilancia.comunitaria.exceptions.EntityNotFoundException;
 import scc.vigilancia.comunitaria.models.Community;
@@ -172,15 +169,9 @@ public class UserService implements UserDetailsService {
         return emailUsuario;
     }
 
-    //TODO: TODO
     public ResponseEntity<Object> getCommunitiesByStatus() {
-        String userEmail = getIdLoggedUser();
-        List<CommunityDTO> communities = communityService.findAll();
-
-        // lista de participando
-        // lista de pendentes
-        //geral
-        return null;
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        return ResponseEntity.ok(this.communityService.findCommunitiesByParticipation(user.getEmail()));
 
     }
 }

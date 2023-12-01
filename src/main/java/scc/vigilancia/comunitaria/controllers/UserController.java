@@ -26,12 +26,6 @@ public class UserController {
         this.inviteService = inviteService;
     }
 
-    @PostMapping("/enter-community")
-    @ApiOperation(nickname = "Adicionar membro a comunidade.", value = "Adiciona membro logado a comunidade.", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Object> enterCommunity(@RequestParam Integer idCommunity) {
-        return userService.enterCommunity(idCommunity);
-    }
-
     @GetMapping("/communities")
     @ApiOperation(nickname = "Listar comunidades do usuário logado", value = "Listar todas as comunidades do usuário logado", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Object> findAllUsersCommunities() {

@@ -17,6 +17,11 @@ public class CommunityDTO {
         this.id = community.getId();
         this.name = community.getName();
     }
+
+    public CommunityDTO(Integer id, String name) {
+        this.id = id;
+        this.name = name;
+    }
 }
 
 

@@ -7,21 +7,19 @@ import org.springframework.stereotype.Service;
 import scc.vigilancia.comunitaria.dto.ApiResponse;
 import scc.vigilancia.comunitaria.dto.CommunityDTO;
 import scc.vigilancia.comunitaria.dto.New.NewCommunityRequest;
-import scc.vigilancia.comunitaria.dto.PostDTO;
-import scc.vigilancia.comunitaria.enums.PostType;
-import scc.vigilancia.comunitaria.enums.StatusType;
+import scc.vigilancia.comunitaria.dto.UserCommunitiesByStatus;
 import scc.vigilancia.comunitaria.exceptions.EntityNotFoundException;
 import scc.vigilancia.comunitaria.models.Community;
-import scc.vigilancia.comunitaria.models.Post;
 import scc.vigilancia.comunitaria.repositories.CommunityRepository;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @Service
 @Slf4j
-public class CommunityService{
+public class CommunityService {
 
     private final CommunityRepository communityRepository;
 
@@ -29,11 +27,11 @@ public class CommunityService{
         this.communityRepository = communityRepository;
     }
 
-    public Community findCommunityById(Integer id) throws EntityNotFoundException{
+    public Community findCommunityById(Integer id) throws EntityNotFoundException {
         Optional<Community> community = communityRepository
                 .findById(id);
 
-        if(community.isEmpty()) {
+        if (community.isEmpty()) {
             throw new EntityNotFoundException("Comunidade não encontrada");
         }
         Community found = community.get();
@@ -48,7 +46,7 @@ public class CommunityService{
         ApiResponse response = ApiResponse
                 .builder()
                 .code("SUCESSO")
-                .message("Comunidade com id "+ communityCreated.getId()  +" criada!")
+                .message("Comunidade com id " + communityCreated.getId() + " criada!")
                 .build();
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
@@ -61,5 +59,35 @@ public class CommunityService{
             communityDTOS.add(communityDTO);
         }
         return communityDTOS;
+    }
+
+    public UserCommunitiesByStatus findCommunitiesByParticipation(String email) {
+        List<CommunityDTO> myCommunities = new ArrayList<>();
+        List<CommunityDTO> pendingInviteCommunities = new ArrayList<>();
+        List<CommunityDTO> others = new ArrayList<>();
+
+        List<Map<String, Object>> communitiesData = communityRepository.findCommunitiesByParticipation(email);
+
+        for (Map<String, Object> communityData : communitiesData) {
+            CommunityDTO community = new CommunityDTO(
+                    (Integer) communityData.get("id"),
+                    (String) communityData.get("nome")
+            );
+
+            String status = (String) communityData.get("status");
+
+            switch (status) {
+                case "mine":
+                    myCommunities.add(community);
+                    break;
+                case "pending":
+                    pendingInviteCommunities.add(community);
+                    break;
+                default:
+                    others.add(community);
+            }
+        }
+
+        return new UserCommunitiesByStatus(myCommunities, pendingInviteCommunities, others);
     }
 }
