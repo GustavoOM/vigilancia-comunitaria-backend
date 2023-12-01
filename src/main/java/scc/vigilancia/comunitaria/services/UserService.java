@@ -91,6 +91,18 @@ public class UserService implements UserDetailsService {
         return ResponseEntity.status(HttpStatus.OK).body(communityDTOS);
     }
 
+    public ResponseEntity<Object> getCommunitiesToEnter() {
+        User user = findUserByEmail(getIdLoggedUser());
+        List<Community> userCommunities = user.getCommunities();
+        List<CommunityDTO> communityDTOS = new ArrayList<>();
+        List<CommunityDTO> allCommunity = communityService.findAll();
+        for (CommunityDTO community : allCommunity) {
+            if(userCommunities.stream().noneMatch(communityUser -> communityUser.getId().equals(community.getId())))
+                communityDTOS.add(community);
+        }
+        return ResponseEntity.status(HttpStatus.OK).body(communityDTOS);
+    }
+
     public ResponseEntity<Object> createNewUserMembro(NewUserMembroRequest newUserMembroRequest) {
         User user = new User();
         user.setEmail(newUserMembroRequest.getEmail());

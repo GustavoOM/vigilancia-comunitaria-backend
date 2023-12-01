@@ -34,8 +34,14 @@ public class UserController {
 
     @GetMapping("/communities")
     @ApiOperation(nickname = "Listar comunidades do usuário logado", value = "Listar todas as comunidades do usuário logado", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Object> findAllPostsByCommunity() {
+    public ResponseEntity<Object> findAllUsersCommunities() {
         return userService.getCommunities();
+    }
+
+    @GetMapping("/communities-to-enter")
+    @ApiOperation(nickname = "Listar comunidades que usuário logado ainda não faz parte", value = "Listar comunidades que usuário logado ainda não faz parte", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Object> findAllUsersCommunitiesToEnter() {
+        return userService.getCommunitiesToEnter();
     }
 
     @GetMapping("/by-community/{idCommunity}")
@@ -54,5 +60,11 @@ public class UserController {
     @ApiOperation(nickname = "Pedir pra entrar na comunidade", value = "Pedir pra entrar na comunidade", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Object> requestCommunity(Integer communityId) {
         return inviteService.requestCommunity(communityId);
+    }
+
+    @GetMapping("/invites-logged-user")
+    @ApiOperation(nickname = "Listar convites pendentes do usuário logado", value = "Listar convites pendentes do usuário logado", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Object> findAllInvitesLoggerUser() {
+        return inviteService.findAllLoggerUser();
     }
 }

@@ -14,6 +14,7 @@ import scc.vigilancia.comunitaria.repositories.InviteRepository;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Service
 public class InviteService {
@@ -39,6 +40,25 @@ public class InviteService {
                             .userEmail(inviteId.getUser().getEmail())
                             .status("PENDING").build()
             );
+        }
+        return ResponseEntity.ok(pendingInvitesResponse);
+    }
+
+    public ResponseEntity<Object> findAllLoggerUser() {
+        List<Invite> invites = inviteRepository.findAll();
+        List<PendingInvite> pendingInvitesResponse = new ArrayList<>();
+        for (Invite invite : invites) {
+            InviteId inviteId = invite.getId();
+            if (Objects.equals(inviteId.getUser().getEmail(), userService.getIdLoggedUser())){
+                pendingInvitesResponse.add(
+                        PendingInvite.builder()
+                                .communityId(inviteId.getCommunity().getId())
+                                .communityName(inviteId.getCommunity().getName())
+                                .userName(inviteId.getUser().getName())
+                                .userEmail(inviteId.getUser().getEmail())
+                                .status("PENDING").build()
+                );
+            }
         }
         return ResponseEntity.ok(pendingInvitesResponse);
     }
